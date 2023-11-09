@@ -1,7 +1,8 @@
 let entrada = "    _  _     _  _  _  _  _ \n  | _| _||_||_ |_   ||_||_|\n  ||_  _|  | _||_|  ||_| _|\n                           ";
 let ceros = " _  _  _  _  _  _  _  _  _ \n| || || || || || || || || |\n|_||_||_||_||_||_||_||_||_|\n                           ";
 let wrong = " _  _  _     _  _  _  _  _ \n| || || || || || || || || |\n|_||_||_||_||_||_||_||_||_|\n                           ";
-
+let unos = "                           \n  |  |  |  |  |  |  |  |  |\n  |  |  |  |  |  |  |  |  |\n                           "
+let ochos = "    _  _  _  _  _  _  _  _ \n|_||_||_||_||_||_||_||_||_|\n|_||_||_||_||_||_||_||_||_|\n                           "
 const segmentos = {
     0: " _ | ||_|", 1: "     |  |", 2: " _  _||_ ", 3: " _  _| _|", 4: "   |_|  |",
     5: " _ |_  _|", 6: " _ |_ |_|", 7: " _   |  |", 8: " _ |_||_|", 9: " _ |_| _|"
@@ -113,7 +114,7 @@ function checksum(data) {
     }
 }
 
-let segmented = obtenerSegmentos(wrong)
+let segmented = obtenerSegmentos(ochos)
 let parsed = obtenerDigitos(segmented);
 checksum(parsed)
 
