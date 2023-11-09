@@ -1,5 +1,6 @@
 let entrada = "    _  _     _  _  _  _  _ \n  | _| _||_||_ |_   ||_||_|\n  ||_  _|  | _||_|  ||_| _|\n                           ";
-let ceros = " _  _  _  _  _  _  _  _  _ \n| || || || || || || || || |\n|_||_||_||_||_||_||_||_||_|"
+let ceros = " _  _  _  _  _  _  _  _  _ \n| || || || || || || || || |\n|_||_||_||_||_||_||_||_||_|\n                           ";
+let wrong = " _  _  _     _  _  _  _  _ \n| || || || || || || || || |\n|_||_||_||_||_||_||_||_||_|\n                           ";
 
 const segmentos = {
     0: " _ | ||_|", 1: "     |  |", 2: " _  _||_ ", 3: " _  _| _|", 4: "   |_|  |",
@@ -28,14 +29,67 @@ function obtenerDigitos(digitos) {
     };
 
     console.log(digitos);
-
+    // let coincidencia
     for (let i = 0; i < digitos.length; i++) {
-        for (let k = 0; k <= digitos.length; k++) {
-            if (digitos[i] === segmentos[k]) {
-                parsed.str = parsed.str + String(k)
-                parsed.arr.push(k)
-            }
+        switch (digitos[i]) {
+            case segmentos[0]:
+                parsed.str = parsed.str + String("0");
+                parsed.arr.push(0);
+                break;
+            case segmentos[1]:
+                parsed.str = parsed.str + String("1");
+                parsed.arr.push(1);
+                break;
+            case segmentos[2]:
+                parsed.str = parsed.str + String("2");
+                parsed.arr.push(2);
+                break;
+            case segmentos[3]:
+                parsed.str = parsed.str + String("3");
+                parsed.arr.push(3);
+                break;
+            case segmentos[4]:
+                parsed.str = parsed.str + String("4");
+                parsed.arr.push(4);
+                break;
+            case segmentos[5]:
+                parsed.str = parsed.str + String("5");
+                parsed.arr.push(5);
+                break;
+            case segmentos[6]:
+                parsed.str = parsed.str + String("6");
+                parsed.arr.push(6);
+                break;
+            case segmentos[7]:
+                parsed.str = parsed.str + String("7");
+                parsed.arr.push(7);
+                break;
+            case segmentos[8]:
+                parsed.str = parsed.str + String("8");
+                parsed.arr.push(8);
+                break;
+            case segmentos[9]:
+                parsed.str = parsed.str + String("9");
+                parsed.arr.push(9);
+                break;
+            default:
+                parsed.str = parsed.str + "?";
+                parsed.arr.push("?");
+                break;
         }
+        // for (let k = 0; k <= digitos.length; k++) {
+        //     coincidencia = false;
+        //     if (digitos[i] === segmentos[k]) {
+        //         parsed.str = parsed.str + String(k);
+        //         parsed.arr.push(k);
+        //         coincidencia = true;
+        //         break;
+        //     }
+        //     if (!coincidencia) {
+        //         parsed.str = parsed.str + "?"
+        //         parsed.arr.push("?")
+        //     }
+        // }
     }
     return parsed
 }
@@ -47,7 +101,6 @@ function checksum(data) {
         sum = sum + parseInt(data.arr[i] * position)
         position--
     }
-
     try {
         let check = (sum % 11)
         if (check === 0) {
@@ -60,7 +113,7 @@ function checksum(data) {
     }
 }
 
-let segmented = obtenerSegmentos(entrada)
+let segmented = obtenerSegmentos(wrong)
 let parsed = obtenerDigitos(segmented);
 checksum(parsed)
 
