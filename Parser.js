@@ -2,16 +2,8 @@ let entrada = "    _  _     _  _  _  _  _ \n  | _| _||_||_ |_   ||_||_|\n  ||_  
 let ceros = " _  _  _  _  _  _  _  _  _ \n| || || || || || || || || |\n|_||_||_||_||_||_||_||_||_|"
 
 const segmentos = {
-    0: " _ | ||_|",
-    1: "     |  |",
-    2: " _  _||_ ",
-    3: " _  _| _|",
-    4: "   |_|  |",
-    5: " _ |_  _|",
-    6: " _ |_ |_|",
-    7: " _   |  |",
-    8: " _ |_||_|",
-    9: " _ |_| _|"
+    0: " _ | ||_|", 1: "     |  |", 2: " _  _||_ ", 3: " _  _| _|", 4: "   |_|  |",
+    5: " _ |_  _|", 6: " _ |_ |_|", 7: " _   |  |", 8: " _ |_||_|", 9: " _ |_| _|"
 }
 
 let digitos = [];
@@ -21,55 +13,56 @@ function obtenerSegmentos(input) {
     let lineaUno = String(lineas[0]);
     let lineaDos = String(lineas[1]);
     let lineaTres = String(lineas[2]);
+
     for (let i = 0; i < lineaUno.length; i += 3) {
         digitos[i] = (lineaUno.substring(i, i + 3) + lineaDos.substring(i, i + 3) + lineaTres.substring(i, i + 3))
     }
     digitos = digitos.filter(String)
     return digitos
 }
+
 function obtenerDigitos(digitos) {
-    let parsed = "";
+    let parsed = {
+        "str": "",
+        "arr": []
+    };
+
+    console.log(digitos);
+
     for (let i = 0; i < digitos.length; i++) {
-        switch (digitos[i]) {
-            case segmentos[0]:
-                parsed = parsed + "0"
-                break;
-            case segmentos[1]:
-                parsed = parsed + "1"
-                break;
-            case segmentos[2]:
-                parsed = parsed + "2"
-                break;
-            case segmentos[3]:
-                parsed = parsed + "3"
-                break;
-            case segmentos[4]:
-                parsed = parsed + "4"
-                break;
-            case segmentos[5]:
-                parsed = parsed + "5"
-                break;
-            case segmentos[6]:
-                parsed = parsed + "6"
-                break;
-            case segmentos[7]:
-                parsed = parsed + "7"
-                break;
-            case segmentos[8]:
-                parsed = parsed + "8"
-                break;
-            case segmentos[9]:
-                parsed = parsed + "9"
-                break;
-            default:
-                parsed = parsed + "?"
-                break;
+        for (let k = 0; k <= digitos.length; k++) {
+            if (digitos[i] === segmentos[k]) {
+                parsed.str = parsed.str + String(k)
+                parsed.arr.push(k)
+            }
         }
     }
     return parsed
 }
 
-let digitosSegmentados = obtenerSegmentos(ceros)
-let digitosParseados = obtenerDigitos(digitosSegmentados);
+function checksum(data) {
+    let sum = 0
+    let position = 9
+    for (let i = 0; i < data.arr.length; i++) {
+        sum = sum + parseInt(data.arr[i] * position)
+        position--
+    }
 
-console.log(digitosParseados);
+    try {
+        let check = (sum % 11)
+        if (check === 0) {
+            console.log(`${data.str} OK`);
+        } else {
+            console.log(`${data.str} ERR`);
+        }
+    } catch (error) {
+        console.log(`${data.str} ILL`);
+    }
+}
+
+let segmented = obtenerSegmentos(entrada)
+let parsed = obtenerDigitos(segmented);
+checksum(parsed)
+
+
+
