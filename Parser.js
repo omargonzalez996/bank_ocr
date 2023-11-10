@@ -1,16 +1,11 @@
-let entrada = "    _  _     _  _  _  _  _ \n  | _| _||_||_ |_   ||_||_|\n  ||_  _|  | _||_|  ||_| _|\n                           ";
-let ceros = " _  _  _  _  _  _  _  _  _ \n| || || || || || || || || |\n|_||_||_||_||_||_||_||_||_|\n                           ";
-let wrong = " _  _  _     _  _  _  _  _ \n| || || || || || || || || |\n|_||_||_||_||_||_||_||_||_|\n                           ";
-let unos = "                           \n  |  |  |  |  |  |  |  |  |\n  |  |  |  |  |  |  |  |  |\n                           "
-let ochos = "    _  _  _  _  _  _  _  _ \n|_||_||_||_||_||_||_||_||_|\n|_||_||_||_||_||_||_||_||_|\n                           "
 const segmentos = {
     0: " _ | ||_|", 1: "     |  |", 2: " _  _||_ ", 3: " _  _| _|", 4: "   |_|  |",
     5: " _ |_  _|", 6: " _ |_ |_|", 7: " _   |  |", 8: " _ |_||_|", 9: " _ |_| _|"
 }
 
-let digitos = [];
 
 function obtenerSegmentos(input) {
+    let digitos = [];
     let lineas = input.split('\n');
     let lineaUno = String(lineas[0]);
     let lineaDos = String(lineas[1]);
@@ -78,43 +73,40 @@ function obtenerDigitos(digitos) {
                 parsed.arr.push("?");
                 break;
         }
-        // for (let k = 0; k <= digitos.length; k++) {
-        //     coincidencia = false;
-        //     if (digitos[i] === segmentos[k]) {
-        //         parsed.str = parsed.str + String(k);
-        //         parsed.arr.push(k);
-        //         coincidencia = true;
-        //         break;
-        //     }
-        //     if (!coincidencia) {
-        //         parsed.str = parsed.str + "?"
-        //         parsed.arr.push("?")
-        //     }
-        // }
     }
     return parsed
 }
 
 function checksum(data) {
     let sum = 0
-    let position = 9
-    for (let i = 0; i < data.arr.length; i++) {
-        sum = sum + parseInt(data.arr[i] * position)
-        position--
+    let n = 1
+    for (let i = data.arr.length; i > 0; i--) {
+        sum += n * data.arr[i - 1]
+        n++
     }
     try {
         let check = (sum % 11)
+
+        if (isNaN(check)) {
+            console.log(`${data.str} ILL`);
+        }
         if (check === 0) {
             console.log(`${data.str} OK`);
-        } else {
+        } else if (check > 0) {
             console.log(`${data.str} ERR`);
         }
     } catch (error) {
-        console.log(`${data.str} ILL`);
+        console.log(`OCURRIÓ UN ERROR`);
     }
 }
 
-let segmented = obtenerSegmentos(ochos)
+let unoalnueve = "    _  _     _  _  _  _  _ \n  | _| _||_||_ |_   ||_||_|\n  ||_  _|  | _||_|  ||_| _|\n                           ";
+let ceros = " _  _  _  _  _  _  _  _  _ \n| || || || || || || || || |\n|_||_||_||_||_||_||_||_||_|\n                           ";
+let wrong = " _  _  _     _  _  _  _  _ \n| || || || || || || || || |\n|_||_||_||_||_||_||_||_||_|\n                           ";
+let unos = "                           \n  |  |  |  |  |  |  |  |  |\n  |  |  |  |  |  |  |  |  |\n                           "
+let ochos = " _  _  _  _  _  _  _  _  _ \n|_||_||_||_||_||_||_||_||_|\n|_||_||_||_||_||_||_||_||_|\n                           "
+
+let segmented = obtenerSegmentos(unoalnueve)
 let parsed = obtenerDigitos(segmented);
 checksum(parsed)
 
